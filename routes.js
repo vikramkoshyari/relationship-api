@@ -28,5 +28,10 @@ router.get('/table/:tableName',(req,res)=>{
     })
 })
 
+// insert into table
+router.post('/:table/:name',(req,res)=>{
+    con.query('insert into '+req.params.table+' (name) values ('+req.params.name+')')
+})
+
 
 module.exports=router
