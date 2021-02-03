@@ -21,7 +21,7 @@ router.get('/:person',(req,res)=>{
 })
 
 // fetch specific table
-router.post('/table/:tableName',(req,res)=>{
+router.get('/table/:tableName',(req,res)=>{
     con.query('select * from '+req.params.tableName,(err,result)=>{
         if(err)throw err;
         res.send(result)
@@ -30,8 +30,10 @@ router.post('/table/:tableName',(req,res)=>{
 
 // insert into persons
 router.post('/persons/:name',(req,res)=>{
-    con.query('insert into persons (name) values ('+req.params.name+')')
-    res.send('success')
+    con.query('insert into persons (name) values ('+req.params.name+')',(err,result)=>{
+        if(err)throw err;
+        res.send(result)
+    })
 })
 
 
