@@ -13,7 +13,7 @@ router.get('/',(req,res)=>{
 })
 
 // fetch specific person  all relations
-router.post('/:person',(req,res)=>{
+router.get('/:person',(req,res)=>{
     con.query("select name,relationship_type.relation,(select name from persons where relationship.relativeID=persons.id) as relative_name from persons,relationship_type,relationship where ( relationship_type.id=relationship.relation and relationship.personID=persons.id) and (relationship.relativeID=(select id from persons where name='"+req.params.person+"')" +" or relationship.personID=(select id from persons where name='"+req.params.person +"'))",(err,result)=>{
         if(err)throw err;
         res.send(result)
@@ -21,16 +21,17 @@ router.post('/:person',(req,res)=>{
 })
 
 // fetch specific table
-router.get('/table/:tableName',(req,res)=>{
+router.post('/table/:tableName',(req,res)=>{
     con.query('select * from '+req.params.tableName,(err,result)=>{
         if(err)throw err;
         res.send(result)
     })
 })
 
-// insert into table
-router.post('/:table/:name',(req,res)=>{
-    con.query('insert into '+req.params.table+' (name) values ('+req.params.name+')')
+// insert into persons
+router.post('/persons/:name',(req,res)=>{
+    con.query('insert into persons (name) values ('+req.params.name+')')
+    res.send('success')
 })
 
 
