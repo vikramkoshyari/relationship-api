@@ -14,14 +14,14 @@ router.get('/',(req,res)=>{
 
 // fetch specific person  all relations
 router.post('/:person',(req,res)=>{
-    con.query("select name,relationship_type.relation,(select name from persons where relationship.relativeID=persons.id) as relative_name from persons,relationship_type,relationship where ( relationship_type.id=relationship.relation and relationship.personID=persons.id) and (relationship.relativeID=(select id from persons where name='vikram') or relationship.personID=(select id from persons where name='vikram'))",(err,result)=>{
+    con.query("select name,relationship_type.relation,(select name from persons where relationship.relativeID=persons.id) as relative_name from persons,relationship_type,relationship where ( relationship_type.id=relationship.relation and relationship.personID=persons.id) and (relationship.relativeID=(select id from persons where name='"+req.params.person+"')" +" or relationship.personID=(select id from persons where name='"+req.params.person +"'))",(err,result)=>{
         if(err)throw err;
         res.send(result)
     })
 })
 
 // fetch specific table
-router.post('/table/:tableName',(req,res)=>{
+router.get('/table/:tableName',(req,res)=>{
     con.query('select * from '+req.params.tableName,(err,result)=>{
         if(err)throw err;
         res.send(result)
