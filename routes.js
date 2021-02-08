@@ -50,4 +50,11 @@ router.post('/relationship/:personID/:relativeID/:relation',(req,res)=>{
     })
 })
 
+router.post('/tag/update/:id/:value',(req,res)=>{
+    con.query('update relationship set relation=(select id from relationship_type where relation="'+req.params.value+'") where id="'+req.params.id+'"',(err,result)=>{
+        if(err)throw err;
+        res.send('success')
+    })
+})
+
 module.exports=router
