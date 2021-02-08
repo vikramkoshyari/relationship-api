@@ -5,7 +5,7 @@ const router = new express.Router();
 
 // fetch all relationships
 router.get('/',(req,res)=>{
-    con.query('select name,relationship_type.relation,(select name from persons where relationship.relativeID=persons.id) as relative_name from persons,relationship_type,relationship where  relationship_type.id=relationship.relation and relationship.personID=persons.id',(err,result)=>{
+    con.query('select id,name,relationship_type.relation,(select name from persons where relationship.relativeID=persons.id) as relative_name from persons,relationship_type,relationship where  relationship_type.id=relationship.relation and relationship.personID=persons.id',(err,result)=>{
         if(err)throw err;
         res.send(result)
 
@@ -39,7 +39,7 @@ router.post('/persons/:name',(req,res)=>{
 router.post('/relationship-type/:relation',(req,res)=>{
     con.query('insert into relationship_type (relation) values ("'+req.params.relation+'")',(err,result)=>{
         if(err)throw err;
-        console.log("success")
+        res.send("success")
     })
 })
 // insert into relationship table
