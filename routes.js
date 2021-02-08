@@ -5,7 +5,7 @@ const router = new express.Router();
 
 // fetch all relationships
 router.get('/',(req,res)=>{
-    con.query('select id,name,relationship_type.relation,(select name from persons where relationship.relativeID=persons.id) as relative_name from persons,relationship_type,relationship where  relationship_type.id=relationship.relation and relationship.personID=persons.id',(err,result)=>{
+    con.query('select relationship.id,name,relationship_type.relation,(select name from persons where relationship.relativeID=persons.id) as relative_name from persons,relationship_type,relationship where  relationship_type.id=relationship.relation and relationship.personID=persons.id',(err,result)=>{
         if(err)throw err;
         res.send(result)
 
