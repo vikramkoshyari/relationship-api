@@ -49,12 +49,14 @@ router.post('/relationship/:personID/:relativeID/:relation',(req,res)=>{
         res.send("success")
     })
 })
-
+//update relationship
 router.post('/tag/update/:id/:value',(req,res)=>{
+    con.query('insert into relationship_type (relation) select "'+req.params.value+'" where not exists (select * from relationship_type where relation="'+req.params.value+'")')
     con.query('update relationship set relation=(select id from relationship_type where relation="'+req.params.value+'") where id="'+req.params.id+'"',(err,result)=>{
         if(err)throw err;
         res.send('success')
     })
 })
+
 
 module.exports=router
