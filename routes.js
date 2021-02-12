@@ -73,7 +73,7 @@ router.get('/persons/id/:name/:relative',(req,res)=>{
         res.send(result);
     })
 })
-router.get('relationship_type/id/:relation',(req,res)=>{
+router.get('/relationship_type/id/:relation',(req,res)=>{
     con.query('select id from relationship_type where relation="'+req.params.relation+'"',(err,result)=>{
         if(err)throw err;
         res.send(result);
