@@ -63,9 +63,20 @@ router.post('/tag/update/:id/:value',(req,res)=>{
 router.post('/relationship_type/:value',(req,res)=>{
     con.query('insert into relationship_type (relation) values("'+req.params.value+'")',(err,result)=>{
         if(err)throw err;
-        con.query('select id from relationship_type where relation="'+req.params.value+'"',(er,r)=>{
-            res.send(r);
-        })
+       res.send("success")
+    })
+})
+
+router.get('/persons/id/:name/:relative',(req,res)=>{
+    con.query('select id from persons where name="'+req.params.name+'" or name="'+req.params.relative+'"',(err,result)=>{
+        if(err)throw err;
+        res.send(result);
+    })
+})
+router.get('relationship_type/id/:relation',(req,res)=>{
+    con.query('select id from relationship_type where relation="'+req.params.relation+'"',(err,result)=>{
+        if(err)throw err;
+        res.send(result);
     })
 })
 
