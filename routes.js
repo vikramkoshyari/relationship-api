@@ -60,6 +60,14 @@ router.post('/tag/update/:id/:value',(req,res)=>{
         res.send('success')
     })
 })
+router.post('/relationship_type/:value',(req,res)=>{
+    con.query('insert into relationship_type (relation) values("'+req.params.value+'")',(err,result)=>{
+        if(err)throw err;
+        con.query('select id from relationship_type where relation="'+req.params.value+'"',(er,r)=>{
+            res.send(r);
+        })
+    })
+})
 
 
 module.exports=router
