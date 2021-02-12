@@ -44,7 +44,7 @@ router.post('/persons/:name',(req,res)=>{
 // })
 // insert into relationship table
 router.post('/relationship/:personID/:relativeID/:relation',(req,res)=>{
-    con.query('insert into relationship (name,relative_name,relation) values (\''+req.params.personID+'\',\''+req.params.relativeID+'\',\''+req.params.relation+'\')',(err,result)=>{
+    con.query('insert into relationship (personID,relativeID,relation) values ("'+req.params.personID+'","'+req.params.relativeID+'","'+req.params.relation+'")',(err,result)=>{
         if(err)throw err;
         res.send("success")
     })
