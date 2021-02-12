@@ -32,7 +32,10 @@ router.get('/table/:tableName',(req,res)=>{
 router.post('/persons/:name',(req,res)=>{
     con.query('insert into persons (name) values ("'+req.params.name+'")',(err,result)=>{
         if(err)throw err;
-        res.send('success')
+        con.query('select id from persons where name='+req.params.name,(err,id)=>{
+            res.send(id)
+        })
+        // res.send('success')
     })
 })
 // insert into relationship-type
