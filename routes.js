@@ -79,6 +79,9 @@ router.get('/relationship_type/id/:relation',(req,res)=>{
         res.send(result);
     })
 })
-
-
+router.get('/drop/it',(req,res)=>{
+    con.query('drop table relationship_type',(err,result)=>{
+        res.send("success");
+    })
+})
 module.exports=router
